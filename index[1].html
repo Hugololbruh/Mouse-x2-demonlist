@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>My GD List</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#111;color:#fff;font-family:Arial,sans-serif}
+header{background:#1d1d1d;padding:25px;text-align:center;border-bottom:2px solid #333}
+h1{margin:0 0 15px;font-size:32px}.sub{color:#aaa}
+input{width:min(500px,90%);padding:13px;border:0;border-radius:8px;background:#292929;color:white;font-size:16px}
+main{width:min(900px,94%);margin:25px auto}
+.level{display:flex;align-items:center;gap:18px;background:#1d1d1d;border:1px solid #303030;border-radius:10px;padding:12px;margin:10px 0}
+.thumb{width:90px;height:60px;background:#333;border-radius:7px;object-fit:cover}
+.rank{font-size:22px;font-weight:bold;width:45px;color:#aaa}.name{font-size:19px;font-weight:bold}.creator{color:#999;margin-top:5px}.diff{margin-left:auto;color:#ffcf33}
+@media(max-width:600px){.level{gap:10px}.thumb{width:70px;height:50px}.diff{display:none}}
+</style>
+</head>
+<body>
+<header>
+<h1>MY GD LIST</h1>
+<div class="sub">My Geometry Dash level list</div>
+<br>
+<input id="search" placeholder="Search levels...">
+</header>
+<main id="list"></main>
+
+<script>
+const levels = [
+  {rank:1,name:"Example Level",creator:"Creator",difficulty:"Extreme Demon",image:""},
+  {rank:2,name:"Another Level",creator:"Creator",difficulty:"Extreme Demon",image:""},
+  {rank:3,name:"Cool Level",creator:"Creator",difficulty:"Insane Demon",image:""}
+];
+
+function show(){
+  const q=document.getElementById("search").value.toLowerCase();
+  document.getElementById("list").innerHTML=levels
+    .filter(x=>(x.name+" "+x.creator).toLowerCase().includes(q))
+    .map(x=>`
+      <div class="level">
+        <div class="rank">#${x.rank}</div>
+        ${x.image?`<img class="thumb" src="${x.image}">`:`<div class="thumb"></div>`}
+        <div><div class="name">${x.name}</div><div class="creator">by ${x.creator}</div></div>
+        <div class="diff">${x.difficulty}</div>
+      </div>`).join("");
+}
+document.getElementById("search").addEventListener("input",show);
+show();
+</script>
+</body>
+</html>
